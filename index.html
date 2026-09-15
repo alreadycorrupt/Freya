@@ -23,20 +23,30 @@
         radial-gradient(1200px 700px at 10% -10%, #ffd6e7 0%, transparent 55%),
         radial-gradient(900px 600px at 110% 10%, #d7c8ff 0%, transparent 50%),
         radial-gradient(800px 500px at 50% 110%, #ffc9b5 0%, transparent 55%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Crect x='6' y='8' width='4' height='4' fill='%23ff2d6a'/%3E%3Crect x='10' y='4' width='8' height='4' fill='%23ff2d6a'/%3E%3Crect x='18' y='8' width='4' height='4' fill='%23ff2d6a'/%3E%3Crect x='10' y='12' width='8' height='4' fill='%23980e3f'/%3E%3Crect x='34' y='30' width='4' height='4' fill='%23ff7a3a'/%3E%3Crect x='30' y='34' width='12' height='8' fill='%23ff9a5a'/%3E%3Crect x='34' y='42' width='4' height='6' fill='%23ffe3ea'/%3E%3Crect x='44' y='10' width='4' height='4' fill='%23ff4f8b'/%3E%3Crect x='40' y='14' width='12' height='4' fill='%23ff4f8b'/%3E%3Crect x='44' y='18' width='4' height='6' fill='%23fff'/%3E%3C/svg%3E"),
         linear-gradient(180deg, #f7e9f2 0%, #eadff5 100%);
-      background-size: auto, auto, auto, 56px 56px, auto;
+      background-size: auto, auto, auto, auto;
       overflow-x: hidden;
     }
     .orb { position: fixed; border-radius: 50%; filter: blur(40px); pointer-events: none; z-index: 0; }
     .o1 { width: 220px; height: 220px; background: rgba(255, 70, 140, 0.5); top: -40px; left: -50px; }
     .o2 { width: 260px; height: 260px; background: rgba(170, 80, 160, 0.38); top: 30%; right: -80px; }
     .o3 { width: 200px; height: 200px; background: rgba(255, 130, 90, 0.4); bottom: -40px; left: 20%; }
-    .pixels { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
-    .px { position: absolute; width: 6px; height: 6px; image-rendering: pixelated; }
-    .px.drop { background: #ff2d6a; box-shadow: 6px 0 #ff2d6a, 12px 0 #ff2d6a, 6px -6px #ff2d6a, 0 6px #ff2d6a, 12px 6px #ff2d6a, 6px 12px #980e3f, 6px 18px #fff; }
-    .px.peach { background: #ff7a3a; box-shadow: 6px 0 #ff7a3a, 12px 0 #ff7a3a, -6px 6px #ff7a3a, 0 6px #ffb07a, 6px 6px #ffd0a8, 12px 6px #ffb07a, 18px 6px #ff7a3a, 0 12px #ff7a3a, 6px 12px #ffb07a, 12px 12px #ff7a3a, 6px 18px #e24b20, 6px -6px #2f9a4a; }
-    .px.lips { background: transparent; box-shadow: 8px 0 #ff2d6a, 14px 0 #ff2d6a, 20px 0 #ff2d6a, 2px 6px #ff2d6a, 8px 6px #ff6b9a, 14px 6px #fff, 20px 6px #ff6b9a, 26px 6px #ff2d6a, 8px 12px #980e3f, 14px 12px #980e3f, 20px 12px #980e3f; }
+    .sexbox {
+      margin: 12px 0 0;
+      border: 3px solid #ff2d6a;
+      box-shadow: 0 0 0 3px #3a0718, 0 0 0 6px #ff9ec0;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #2a0716;
+      line-height: 0;
+    }
+    #sexpx {
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      display: block;
+    }
     .wrap { position: relative; z-index: 1; max-width: 420px; margin: 0 auto; padding: 28px 18px 40px; }
     .card, .sheet, button.item, a.item, .tarif details {
       border: 3px solid #ff2d6a;
@@ -101,15 +111,6 @@
   <div class="orb o1"></div>
   <div class="orb o2"></div>
   <div class="orb o3"></div>
-  <div class="pixels" aria-hidden="true">
-    <i class="px drop" style="top:16px;left:14px"></i>
-    <i class="px peach" style="top:64px;right:16px"></i>
-    <i class="px lips" style="top:200px;left:8px"></i>
-    <i class="px drop" style="top:44%;right:10px"></i>
-    <i class="px peach" style="bottom:140px;left:14px"></i>
-    <i class="px lips" style="bottom:64px;right:12px"></i>
-    <i class="px drop" style="bottom:18px;left:48%"></i>
-  </div>
   <main class="wrap">
     <section class="card">
       <div class="avatar-wrap">
@@ -124,6 +125,9 @@
         <a class="pill" href="https://x.com/alreadycorrupt" id="xIcon" aria-label="X">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L6 22H2.9l7.3-8.3L1.2 2h6.6l4.5 6L18.9 2zm-1.1 18h1.8L6.3 3.9H4.4L17.8 20z"/></svg>
         </a>
+      </div>
+      <div class="sexbox" aria-hidden="true">
+        <canvas id="sexpx" width="96" height="64"></canvas>
       </div>
     </section>
     <nav class="menu">
@@ -201,6 +205,64 @@
     const bukti = () => openTg(TELE_URL);
     document.getElementById("btnBukti").onclick = bukti;
     document.getElementById("btnBukti2").onclick = bukti;
+
+    (function pixelSex() {
+      const c = document.getElementById("sexpx");
+      if (!c || !c.getContext) return;
+      const ctx = c.getContext("2d");
+      ctx.imageSmoothingEnabled = false;
+      const W = 96, H = 64;
+      const C = {
+        bg: "#2a0716", sheet: "#5a1830", sheet2: "#7a2444",
+        skin: "#f0b894", skin2: "#d99274", skin3: "#c07860",
+        hair: "#2b1610", nipple: "#c45a5a",
+        slit: "#8b1e3a", wet: "#e45a7a", wet2: "#ffd0de",
+        shaft: "#e8c4a0", head: "#f3d3b4", vein: "#c99478",
+        line: "#1a080c"
+      };
+      function p(x, y, w, h, col) {
+        ctx.fillStyle = col;
+        ctx.fillRect(x, y, w, h);
+      }
+      function frame(t) {
+        const depth = Math.round((Math.sin(t / 140) + 1) * 5);
+        ctx.fillStyle = C.bg;
+        ctx.fillRect(0, 0, W, H);
+        p(0, 48, 96, 16, C.sheet);
+        p(0, 52, 96, 4, C.sheet2);
+        p(18, 8, 18, 8, C.hair);
+        p(20, 14, 16, 12, C.skin);
+        p(24, 18, 3, 3, C.line);
+        p(32, 18, 3, 3, C.line);
+        p(27, 24, 6, 2, C.nipple);
+        p(22, 26, 20, 16, C.skin);
+        p(24, 30, 5, 5, C.skin2);
+        p(34, 30, 5, 5, C.skin2);
+        p(26, 32, 2, 2, C.nipple);
+        p(36, 32, 2, 2, C.nipple);
+        p(26, 40, 14, 10, C.skin);
+        p(8, 36, 20, 6, C.skin2);
+        p(6, 34, 8, 16, C.skin);
+        p(48, 36, 20, 6, C.skin2);
+        p(62, 34, 8, 16, C.skin);
+        p(28, 46, 10, 6, C.skin3);
+        p(30, 48, 6, 4, C.slit);
+        p(32, 49, 2, 3, C.wet);
+        const x = 30 - depth;
+        p(x, 47, 12 + depth, 4, C.shaft);
+        p(x - 4, 46, 6, 6, C.head);
+        p(x + 2, 48, 8, 1, C.vein);
+        if (depth > 6) p(33, 52, 3, 3, C.wet2);
+        p(x - 6, 44, 8, 4, C.skin2);
+        p(x - 8, 40, 10, 6, C.skin2);
+      }
+      let start = performance.now();
+      function loop(now) {
+        frame(now - start);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    })();
   </script>
 </body>
 </html>
