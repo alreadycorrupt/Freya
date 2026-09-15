@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Freya Velvet</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --glass: rgba(255, 255, 255, 0.22);
+      --glass-2: rgba(255, 255, 255, 0.32);
+      --stroke: rgba(255, 255, 255, 0.46);
+      --ink: #3b2430;
+      --soft: #6d4a58;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: "Segoe UI", ui-rounded, system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% -10%, #ffd6e7 0%, transparent 55%),
+        radial-gradient(900px 600px at 110% 10%, #d7c8ff 0%, transparent 50%),
+        radial-gradient(800px 500px at 50% 110%, #ffc9b5 0%, transparent 55%),
+        linear-gradient(180deg, #f7e9f2 0%, #eadff5 100%);
+      overflow-x: hidden;
+    }
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(40px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .o1 { width: 220px; height: 220px; background: rgba(255, 130, 170, 0.45); top: -40px; left: -50px; }
+    .o2 { width: 260px; height: 260px; background: rgba(170, 140, 255, 0.35); top: 30%; right: -80px; }
+    .o3 { width: 200px; height: 200px; background: rgba(255, 190, 140, 0.35); bottom: -40px; left: 20%; }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+    }
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      border-radius: 28px;
+      padding: 26px 18px 18px;
+      backdrop-filter: blur(22px) saturate(160%);
+      -webkit-backdrop-filter: blur(22px) saturate(160%);
+      box-shadow: 0 20px 50px rgba(90, 40, 70, 0.12), inset 0 1px 0 rgba(255,255,255,0.55);
+      text-align: center;
+    }
+    .avatar-wrap {
+      width: 118px;
+      height: 118px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,180,210,0.4), rgba(190,170,255,0.55));
+      box-shadow: 0 12px 30px rgba(190, 80, 120, 0.22);
+    }
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      border: 3px solid rgba(255,255,255,0.55);
+    }
+    h1 { margin: 0; font-size: 28px; letter-spacing: -0.03em; }
+    .bio { margin: 8px 0 0; color: var(--soft); font-size: 14px; line-height: 1.45; }
+    .pills { margin-top: 16px; display: flex; justify-content: center; gap: 8px; }
+    .pill {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--glass-2);
+      border: 1px solid var(--stroke);
+      color: var(--ink);
+      text-decoration: none;
+      backdrop-filter: blur(16px);
+    }
+    .menu { margin-top: 16px; display: grid; gap: 10px; }
+    button.item, a.item {
+      appearance: none;
+      width: 100%;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.28);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border-radius: 18px;
+      padding: 14px 16px;
+      color: var(--ink);
+      text-decoration: none;
+      text-align: left;
+      font-size: 15px;
+      font-weight: 650;
+      cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+    button.item:active, a.item:active { transform: scale(0.985); }
+    .item small { display: block; margin-top: 3px; font-size: 12px; font-weight: 500; color: var(--soft); }
+    .n {
+      display: inline-grid; place-items: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      margin-right: 8px; background: rgba(255,255,255,0.45); font-size: 12px;
+    }
+    .sheet {
+      display: none; margin-top: 12px;
+      background: rgba(255,255,255,0.28);
+      border: 1px solid var(--stroke);
+      border-radius: 20px; padding: 12px;
+      backdrop-filter: blur(18px);
+    }
+    .sheet.show { display: block; }
+    .sheet img { width: 100%; border-radius: 14px; display: block; }
+    .cap { margin: 10px 8px 4px; font-size: 12px; color: var(--soft); text-align: center; }
+    .primary {
+      margin-top: 10px; width: 100%; border: 0; border-radius: 14px;
+      padding: 12px; font-weight: 700; color: #fff;
+      background: linear-gradient(135deg, #e889b0, #c9a6ff);
+    }
+  </style>
+</head>
+<body>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+  <main class="wrap">
+    <section class="card">
+      <div class="avatar-wrap">
+        <img src="avatar.jpg" alt="Freya Velvet" />
+      </div>
+      <h1>Freya Velvet</h1>
+      <p class="bio">Ga open bo!! cuma jual konten, request, task or vcs 🍒</p>
+      <div class="pills">
+        <a class="pill" href="https://t.me/fffrreya" id="tgIcon" aria-label="Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 3.3 2.8 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 11.1-7c.5-.3 1-.1.6.2l-9 8.2-.3 4.8c.4 0 .6-.2.8-.4l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.5z"/></svg>
+        </a>
+        <a class="pill" href="https://x.com/alreadycorrupt" id="xIcon" aria-label="X">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L6 22H2.9l7.3-8.3L1.2 2h6.6l4.5 6L18.9 2zm-1.1 18h1.8L6.3 3.9H4.4L17.8 20z"/></svg>
+        </a>
+      </div>
+    </section>
+    <nav class="menu">
+      <button class="item" type="button" id="btnX"><span class="n">1</span>Lihat profil X Freya<small>@alreadycorrupt</small></button>
+      <button class="item" type="button" id="btnQris"><span class="n">2</span>Lihat payment QRIS<small>Scan, lalu kirim bukti</small></button>
+      <button class="item" type="button" id="btnBukti"><span class="n">3</span>Kirim bukti transfer<small>SS masuk ke chat Freya</small></button>
+      <button class="item" type="button" id="btnChat"><span class="n">4</span>Direct Telegram Freya<small>@fffrreya</small></button>
+      <button class="item" type="button" id="btnTarif"><span class="n">5</span>Liat tarif konten<small>Harga request / task / vcs</small></button>
+    </nav>
+    <section class="sheet" id="qrisSheet">
+      <img src="qris.jpg" alt="QRIS Freya" />
+      <p class="cap">Ganti file qris.jpg dengan QRIS asli sebelum dipakai terima uang.</p>
+      <button class="primary" type="button" id="btnBukti2">Kirim bukti transfer</button>
+    </section>
+  </main>
+  <script>
+    const tg = window.Telegram && window.Telegram.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      try { tg.setHeaderColor("#f7e9f2"); tg.setBackgroundColor("#eadff5"); } catch (e) {}
+    }
+    const X_URL = "https://x.com/alreadycorrupt";
+    const TELE_URL = "https://t.me/fffrreya";
+    const TARIF_URL = "https://trakteer.id/ffrreya";
+    function openWeb(url) { if (tg && tg.openLink) tg.openLink(url); else window.open(url, "_blank"); }
+    function openTg(url) { if (tg && tg.openTelegramLink) tg.openTelegramLink(url); else window.location.href = url; }
+    document.getElementById("btnX").onclick = () => openWeb(X_URL);
+    document.getElementById("xIcon").onclick = (e) => { e.preventDefault(); openWeb(X_URL); };
+    document.getElementById("btnChat").onclick = () => openTg(TELE_URL);
+    document.getElementById("tgIcon").onclick = (e) => { e.preventDefault(); openTg(TELE_URL); };
+    document.getElementById("btnTarif").onclick = () => openWeb(TARIF_URL);
+    document.getElementById("btnQris").onclick = () => {
+      document.getElementById("qrisSheet").classList.add("show");
+      document.getElementById("qrisSheet").scrollIntoView({ behavior: "smooth", block: "center" });
+    };
+    const bukti = () => openTg(TELE_URL);
+    document.getElementById("btnBukti").onclick = bukti;
+    document.getElementById("btnBukti2").onclick = bukti;
+  </script>
+</body>
+</html>
