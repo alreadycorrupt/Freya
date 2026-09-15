@@ -7,84 +7,40 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
-      --glass: rgba(255, 214, 230, 0.22);
-      --glass-2: rgba(255, 186, 214, 0.34);
-      --stroke: rgba(255, 120, 168, 0.55);
-      --ink: #4a1730;
-      --soft: #8a3a5c;
+      --glass: rgba(255, 210, 228, 0.28);
+      --glass-2: rgba(255, 186, 214, 0.4);
+      --stroke: #ff4f8b;
+      --ink: #3b2430;
+      --soft: #6d4a58;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
     body {
       font-family: "Segoe UI", ui-rounded, system-ui, sans-serif;
       color: var(--ink);
-      background-color: #2a0716;
+      background-color: #ffd0e2;
       background-image:
-        linear-gradient(180deg, rgba(255, 214, 230, 0.82), rgba(255, 176, 210, 0.88)),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Crect width='72' height='72' fill='%23ffd6e8'/%3E%3Crect x='8' y='10' width='4' height='4' fill='%23ff4f8b'/%3E%3Crect x='12' y='6' width='8' height='4' fill='%23ff4f8b'/%3E%3Crect x='20' y='10' width='4' height='4' fill='%23ff4f8b'/%3E%3Crect x='12' y='14' width='8' height='4' fill='%23c41e5a'/%3E%3Crect x='44' y='40' width='4' height='4' fill='%23ff77aa'/%3E%3Crect x='48' y='36' width='8' height='4' fill='%23ff77aa'/%3E%3Crect x='56' y='40' width='4' height='4' fill='%23ff77aa'/%3E%3Crect x='48' y='44' width='8' height='8' fill='%23ff9ec0'/%3E%3Crect x='50' y='52' width='4' height='6' fill='%23fff1f7'/%3E%3Crect x='28' y='50' width='4' height='4' fill='%23e11d74'/%3E%3Crect x='24' y='54' width='12' height='4' fill='%23e11d74'/%3E%3Crect x='28' y='58' width='4' height='6' fill='%23ffd6ea'/%3E%3C/svg%3E");
-      background-size: auto, 72px 72px;
+        radial-gradient(1200px 700px at 10% -10%, #ffd6e7 0%, transparent 55%),
+        radial-gradient(900px 600px at 110% 10%, #d7c8ff 0%, transparent 50%),
+        radial-gradient(800px 500px at 50% 110%, #ffc9b5 0%, transparent 55%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Crect x='6' y='8' width='4' height='4' fill='%23ff2d6a'/%3E%3Crect x='10' y='4' width='8' height='4' fill='%23ff2d6a'/%3E%3Crect x='18' y='8' width='4' height='4' fill='%23ff2d6a'/%3E%3Crect x='10' y='12' width='8' height='4' fill='%23980e3f'/%3E%3Crect x='34' y='30' width='4' height='4' fill='%23ff7a3a'/%3E%3Crect x='30' y='34' width='12' height='8' fill='%23ff9a5a'/%3E%3Crect x='34' y='42' width='4' height='6' fill='%23ffe3ea'/%3E%3Crect x='44' y='10' width='4' height='4' fill='%23ff4f8b'/%3E%3Crect x='40' y='14' width='12' height='4' fill='%23ff4f8b'/%3E%3Crect x='44' y='18' width='4' height='6' fill='%23fff'/%3E%3C/svg%3E"),
+        linear-gradient(180deg, #f7e9f2 0%, #eadff5 100%);
+      background-size: auto, auto, auto, 56px 56px, auto;
       overflow-x: hidden;
     }
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(40px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .o1 { width: 220px; height: 220px; background: rgba(255, 70, 140, 0.55); top: -40px; left: -50px; }
-    .o2 { width: 260px; height: 260px; background: rgba(190, 60, 120, 0.4); top: 30%; right: -80px; }
-    .o3 { width: 200px; height: 200px; background: rgba(255, 120, 90, 0.38); bottom: -40px; left: 20%; }
-    .pixels {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.9;
-    }
-    .px {
-      position: absolute;
-      image-rendering: pixelated;
-      background: #ff4f8b;
-      box-shadow:
-        4px 0 #ff4f8b, 8px 0 #ff4f8b, 12px 0 #c41e5a,
-        0 4px #ff4f8b, 4px 4px #ff7aa8, 8px 4px #ff7aa8, 12px 4px #ff4f8b,
-        4px 8px #c41e5a, 8px 8px #c41e5a,
-        6px 12px #fff1f7, 6px 16px #fff1f7;
-      width: 4px; height: 4px;
-    }
-    .px.peach {
-      background: #ff8a4a;
-      box-shadow:
-        4px 0 #ff8a4a, 8px 0 #ff8a4a,
-        -4px 4px #ff8a4a, 0 4px #ffb37a, 4px 4px #ffd0a8, 8px 4px #ffb37a, 12px 4px #ff8a4a,
-        -4px 8px #ff8a4a, 0 8px #ffb37a, 4px 8px #ffd0a8, 8px 8px #ffb37a, 12px 8px #ff8a4a,
-        0 12px #e45b2f, 4px 12px #e45b2f, 8px 12px #e45b2f,
-        4px -4px #3aa35a, 8px -4px #3aa35a;
-    }
-    .px.lips {
-      background: transparent;
-      width: 4px; height: 4px;
-      box-shadow:
-        8px 0 #ff2d6a, 12px 0 #ff2d6a, 16px 0 #ff2d6a, 20px 0 #ff2d6a,
-        4px 4px #ff2d6a, 8px 4px #ff6b9a, 12px 4px #fff, 16px 4px #ff6b9a, 20px 4px #ff2d6a, 24px 4px #ff2d6a,
-        4px 8px #b80d45, 8px 8px #ff2d6a, 12px 8px #ff2d6a, 16px 8px #ff2d6a, 20px 8px #b80d45,
-        8px 12px #b80d45, 12px 12px #b80d45, 16px 12px #b80d45;
-    }
-    .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 420px;
-      margin: 0 auto;
-      padding: 28px 18px 40px;
-    }
-    .card, .sheet, button.item, a.item, .tarif details, .pill {
-      border: 3px solid #ff4f8b;
-      box-shadow:
-        0 0 0 2px #3a0718,
-        0 0 0 5px #ff9ec0,
-        0 12px 28px rgba(180, 20, 80, 0.22),
-        inset 0 1px 0 rgba(255,255,255,0.55);
+    .orb { position: fixed; border-radius: 50%; filter: blur(40px); pointer-events: none; z-index: 0; }
+    .o1 { width: 220px; height: 220px; background: rgba(255, 70, 140, 0.5); top: -40px; left: -50px; }
+    .o2 { width: 260px; height: 260px; background: rgba(170, 80, 160, 0.38); top: 30%; right: -80px; }
+    .o3 { width: 200px; height: 200px; background: rgba(255, 130, 90, 0.4); bottom: -40px; left: 20%; }
+    .pixels { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
+    .px { position: absolute; width: 6px; height: 6px; image-rendering: pixelated; }
+    .px.drop { background: #ff2d6a; box-shadow: 6px 0 #ff2d6a, 12px 0 #ff2d6a, 6px -6px #ff2d6a, 0 6px #ff2d6a, 12px 6px #ff2d6a, 6px 12px #980e3f, 6px 18px #fff; }
+    .px.peach { background: #ff7a3a; box-shadow: 6px 0 #ff7a3a, 12px 0 #ff7a3a, -6px 6px #ff7a3a, 0 6px #ffb07a, 6px 6px #ffd0a8, 12px 6px #ffb07a, 18px 6px #ff7a3a, 0 12px #ff7a3a, 6px 12px #ffb07a, 12px 12px #ff7a3a, 6px 18px #e24b20, 6px -6px #2f9a4a; }
+    .px.lips { background: transparent; box-shadow: 8px 0 #ff2d6a, 14px 0 #ff2d6a, 20px 0 #ff2d6a, 2px 6px #ff2d6a, 8px 6px #ff6b9a, 14px 6px #fff, 20px 6px #ff6b9a, 26px 6px #ff2d6a, 8px 12px #980e3f, 14px 12px #980e3f, 20px 12px #980e3f; }
+    .wrap { position: relative; z-index: 1; max-width: 420px; margin: 0 auto; padding: 28px 18px 40px; }
+    .card, .sheet, button.item, a.item, .tarif details {
+      border: 3px solid #ff2d6a;
+      box-shadow: 0 0 0 3px #3a0718, 0 0 0 6px #ff9ec0, 0 16px 36px rgba(90, 40, 70, 0.16), inset 0 1px 0 rgba(255,255,255,0.55);
     }
     .card {
       background: var(--glass);
@@ -95,114 +51,50 @@
       text-align: center;
       position: relative;
     }
-    .card::before,
-    .card::after {
+    .card::before, .card::after {
       content: "";
       position: absolute;
-      left: 14px;
-      right: 14px;
-      height: 6px;
-      background-image: repeating-linear-gradient(90deg, #ff4f8b 0 6px, #fff 6px 8px, #ff9ec0 8px 14px, #c41e5a 14px 16px);
+      left: 12px; right: 12px; height: 8px;
+      background: repeating-linear-gradient(90deg, #ff2d6a 0 8px, #fff 8px 10px, #ff9ec0 10px 18px, #3a0718 18px 20px);
       image-rendering: pixelated;
       pointer-events: none;
     }
-    .card::before { top: 8px; }
-    .card::after { bottom: 8px; }
+    .card::before { top: 7px; }
+    .card::after { bottom: 7px; }
     .avatar-wrap {
-      width: 118px;
-      height: 118px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      padding: 3px;
-      background: linear-gradient(135deg, #fff, #ff8ab5, #ff3d7a);
-      box-shadow: 0 0 0 4px #3a0718, 0 0 0 8px #ff4f8b, 0 12px 30px rgba(190, 80, 120, 0.28);
+      width: 118px; height: 118px; margin: 0 auto 14px; border-radius: 50%; padding: 3px;
+      background: linear-gradient(135deg, #fff, #ff8ab5, #ff2d6a);
+      box-shadow: 0 0 0 4px #3a0718, 0 0 0 8px #ff2d6a, 0 12px 30px rgba(190, 80, 120, 0.22);
     }
-    .avatar-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-      border: 3px solid rgba(255,255,255,0.55);
-    }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; border: 3px solid rgba(255,255,255,0.55); }
     h1 { margin: 0; font-size: 28px; letter-spacing: -0.03em; }
     .bio { margin: 8px 0 0; color: var(--soft); font-size: 14px; line-height: 1.45; }
     .pills { margin-top: 16px; display: flex; justify-content: center; gap: 8px; }
     .pill {
-      width: 42px; height: 42px; border-radius: 50%;
-      display: grid; place-items: center;
-      background: var(--glass-2);
-      color: var(--ink);
-      text-decoration: none;
-      backdrop-filter: blur(16px);
+      width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--glass-2); border: 3px solid #ff2d6a; color: var(--ink); text-decoration: none; backdrop-filter: blur(16px);
     }
     .menu { margin-top: 16px; display: grid; gap: 10px; }
     button.item, a.item {
-      appearance: none;
-      width: 100%;
-      background: rgba(255, 214, 230, 0.34);
-      backdrop-filter: blur(18px) saturate(160%);
-      -webkit-backdrop-filter: blur(18px) saturate(160%);
-      border-radius: 18px;
-      padding: 14px 16px;
-      color: var(--ink);
-      text-decoration: none;
-      text-align: left;
-      font-size: 15px;
-      font-weight: 650;
-      cursor: pointer;
+      appearance: none; width: 100%; background: rgba(255,255,255,0.28);
+      backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border-radius: 18px; padding: 14px 16px; color: var(--ink); text-decoration: none;
+      text-align: left; font-size: 15px; font-weight: 650; cursor: pointer;
     }
     button.item:active, a.item:active { transform: scale(0.985); }
     .item small { display: block; margin-top: 3px; font-size: 12px; font-weight: 500; color: var(--soft); }
-    .n {
-      display: inline-grid; place-items: center;
-      width: 22px; height: 22px; border-radius: 50%;
-      margin-right: 8px; background: #ffd0e0; font-size: 12px;
-      border: 2px solid #ff4f8b;
-    }
-    .sheet {
-      display: none; margin-top: 12px;
-      background: rgba(255, 214, 230, 0.34);
-      border-radius: 20px; padding: 12px;
-      backdrop-filter: blur(18px);
-    }
+    .n { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; margin-right: 8px; background: #ffd0e0; font-size: 12px; border: 2px solid #ff2d6a; }
+    .sheet { display: none; margin-top: 12px; background: rgba(255,255,255,0.28); border-radius: 20px; padding: 12px; backdrop-filter: blur(18px); }
     .sheet.show { display: block; }
-    .sheet img { width: 100%; border-radius: 14px; display: block; border: 3px solid #ff4f8b; }
+    .sheet img { width: 100%; border-radius: 14px; display: block; border: 3px solid #ff2d6a; }
     .cap { margin: 10px 8px 4px; font-size: 12px; color: var(--soft); text-align: center; }
-    .primary {
-      margin-top: 10px; width: 100%; border: 3px solid #3a0718;
-      border-radius: 14px;
-      padding: 12px; font-weight: 700; color: #fff;
-      background: linear-gradient(135deg, #ff3d7a, #c41e5a);
-      box-shadow: 0 0 0 3px #ff9ec0;
-    }
+    .primary { margin-top: 10px; width: 100%; border: 3px solid #3a0718; border-radius: 14px; padding: 12px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #ff2d6a, #c41e5a); box-shadow: 0 0 0 3px #ff9ec0; }
     .tarif { display: grid; gap: 8px; }
-    .tarif details {
-      background: rgba(255,255,255,0.22);
-      border-radius: 14px;
-      padding: 0 12px;
-    }
-    .tarif summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 12px 2px;
-      font-weight: 700;
-      font-size: 14px;
-    }
+    .tarif details { background: rgba(255,255,255,0.22); border-radius: 14px; padding: 0 12px; }
+    .tarif summary { list-style: none; cursor: pointer; padding: 12px 2px; font-weight: 700; font-size: 14px; }
     .tarif summary::-webkit-details-marker { display: none; }
-    .tarif p {
-      margin: 0 0 12px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--soft);
-      line-height: 1.45;
-    }
-    .note {
-      margin: 8px 2px 0;
-      font-size: 12px;
-      color: var(--soft);
-      line-height: 1.45;
-    }
+    .tarif p { margin: 0 0 12px; font-size: 13px; font-weight: 500; color: var(--soft); line-height: 1.45; }
+    .note { margin: 8px 2px 0; font-size: 12px; color: var(--soft); line-height: 1.45; }
   </style>
 </head>
 <body>
@@ -210,14 +102,13 @@
   <div class="orb o2"></div>
   <div class="orb o3"></div>
   <div class="pixels" aria-hidden="true">
-    <i class="px" style="top:18px;left:16px"></i>
-    <i class="px peach" style="top:70px;right:22px"></i>
-    <i class="px lips" style="top:210px;left:10px"></i>
-    <i class="px" style="top:46%;right:12px"></i>
-    <i class="px peach" style="bottom:120px;left:18px"></i>
-    <i class="px lips" style="bottom:70px;right:18px"></i>
-    <i class="px" style="bottom:24px;left:46%"></i>
-    <i class="px peach" style="top:38%;left:8px"></i>
+    <i class="px drop" style="top:16px;left:14px"></i>
+    <i class="px peach" style="top:64px;right:16px"></i>
+    <i class="px lips" style="top:200px;left:8px"></i>
+    <i class="px drop" style="top:44%;right:10px"></i>
+    <i class="px peach" style="bottom:140px;left:14px"></i>
+    <i class="px lips" style="bottom:64px;right:12px"></i>
+    <i class="px drop" style="bottom:18px;left:48%"></i>
   </div>
   <main class="wrap">
     <section class="card">
@@ -283,7 +174,7 @@
     if (tg) {
       tg.ready();
       tg.expand();
-      try { tg.setHeaderColor("#ffd0e0"); tg.setBackgroundColor("#ffb3cc"); } catch (e) {}
+      try { tg.setHeaderColor("#f7e9f2"); tg.setBackgroundColor("#eadff5"); } catch (e) {}
     }
     const X_URL = "https://x.com/alreadycorrupt";
     const TRAKTEER_URL = "https://trakteer.id/ffrreya";
