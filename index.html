@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Freya Velvet</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js"></script>
   <style>
     :root {
-      --glass: rgba(255, 210, 228, 0.28);
-      --glass-2: rgba(255, 186, 214, 0.4);
-      --stroke: #ff4f8b;
+      --glass: rgba(255, 255, 255, 0.22);
+      --glass-2: rgba(255, 255, 255, 0.32);
+      --stroke: rgba(255, 255, 255, 0.46);
       --ink: #3b2430;
       --soft: #6d4a58;
     }
@@ -18,89 +19,58 @@
     body {
       font-family: "Segoe UI", ui-rounded, system-ui, sans-serif;
       color: var(--ink);
-      background-color: #ffd0e2;
-      background-image:
+      background:
         radial-gradient(1200px 700px at 10% -10%, #ffd6e7 0%, transparent 55%),
         radial-gradient(900px 600px at 110% 10%, #d7c8ff 0%, transparent 50%),
         radial-gradient(800px 500px at 50% 110%, #ffc9b5 0%, transparent 55%),
         linear-gradient(180deg, #f7e9f2 0%, #eadff5 100%);
-      background-size: auto, auto, auto, auto;
       overflow-x: hidden;
     }
     .orb { position: fixed; border-radius: 50%; filter: blur(40px); pointer-events: none; z-index: 0; }
-    .o1 { width: 220px; height: 220px; background: rgba(255, 70, 140, 0.5); top: -40px; left: -50px; }
-    .o2 { width: 260px; height: 260px; background: rgba(170, 80, 160, 0.38); top: 30%; right: -80px; }
-    .o3 { width: 200px; height: 200px; background: rgba(255, 130, 90, 0.4); bottom: -40px; left: 20%; }
-    .sexbox {
-      margin: 12px 0 0;
-      border: 3px solid #ff2d6a;
-      box-shadow: 0 0 0 3px #3a0718, 0 0 0 6px #ff9ec0;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #2a0716;
-      line-height: 0;
-    }
-    #sexpx {
-      width: 100%;
-      height: auto;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-      display: block;
-    }
+    .o1 { width: 220px; height: 220px; background: rgba(255, 130, 170, 0.45); top: -40px; left: -50px; }
+    .o2 { width: 260px; height: 260px; background: rgba(170, 140, 255, 0.35); top: 30%; right: -80px; }
+    .o3 { width: 200px; height: 200px; background: rgba(255, 190, 140, 0.35); bottom: -40px; left: 20%; }
     .wrap { position: relative; z-index: 1; max-width: 420px; margin: 0 auto; padding: 28px 18px 40px; }
-    .card, .sheet, button.item, a.item, .tarif details {
-      border: 3px solid #ff2d6a;
-      box-shadow: 0 0 0 3px #3a0718, 0 0 0 6px #ff9ec0, 0 16px 36px rgba(90, 40, 70, 0.16), inset 0 1px 0 rgba(255,255,255,0.55);
-    }
     .card {
-      background: var(--glass);
-      border-radius: 28px;
-      padding: 26px 18px 18px;
-      backdrop-filter: blur(22px) saturate(160%);
-      -webkit-backdrop-filter: blur(22px) saturate(160%);
-      text-align: center;
-      position: relative;
+      background: var(--glass); border: 1px solid var(--stroke); border-radius: 28px; padding: 26px 18px 18px;
+      backdrop-filter: blur(22px) saturate(160%); -webkit-backdrop-filter: blur(22px) saturate(160%);
+      box-shadow: 0 20px 50px rgba(90, 40, 70, 0.12), inset 0 1px 0 rgba(255,255,255,0.55); text-align: center;
     }
-    .card::before, .card::after {
-      content: "";
-      position: absolute;
-      left: 12px; right: 12px; height: 8px;
-      background: repeating-linear-gradient(90deg, #ff2d6a 0 8px, #fff 8px 10px, #ff9ec0 10px 18px, #3a0718 18px 20px);
-      image-rendering: pixelated;
-      pointer-events: none;
-    }
-    .card::before { top: 7px; }
-    .card::after { bottom: 7px; }
     .avatar-wrap {
       width: 118px; height: 118px; margin: 0 auto 14px; border-radius: 50%; padding: 3px;
-      background: linear-gradient(135deg, #fff, #ff8ab5, #ff2d6a);
-      box-shadow: 0 0 0 4px #3a0718, 0 0 0 8px #ff2d6a, 0 12px 30px rgba(190, 80, 120, 0.22);
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,180,210,0.4), rgba(190,170,255,0.55));
+      box-shadow: 0 12px 30px rgba(190, 80, 120, 0.22);
     }
     .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; border: 3px solid rgba(255,255,255,0.55); }
     h1 { margin: 0; font-size: 28px; letter-spacing: -0.03em; }
     .bio { margin: 8px 0 0; color: var(--soft); font-size: 14px; line-height: 1.45; }
+    .lewd { margin: 12px 0 0; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 22px; line-height: 1; }
+    img.emoji { height: 1.2em; width: 1.2em; vertical-align: -0.2em; }
     .pills { margin-top: 16px; display: flex; justify-content: center; gap: 8px; }
     .pill {
       width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
-      background: var(--glass-2); border: 3px solid #ff2d6a; color: var(--ink); text-decoration: none; backdrop-filter: blur(16px);
+      background: var(--glass-2); border: 1px solid var(--stroke); color: var(--ink);
+      text-decoration: none; backdrop-filter: blur(16px);
     }
     .menu { margin-top: 16px; display: grid; gap: 10px; }
     button.item, a.item {
-      appearance: none; width: 100%; background: rgba(255,255,255,0.28);
+      appearance: none; width: 100%; border: 1px solid var(--stroke); background: rgba(255,255,255,0.28);
       backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
       border-radius: 18px; padding: 14px 16px; color: var(--ink); text-decoration: none;
       text-align: left; font-size: 15px; font-weight: 650; cursor: pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
     }
     button.item:active, a.item:active { transform: scale(0.985); }
     .item small { display: block; margin-top: 3px; font-size: 12px; font-weight: 500; color: var(--soft); }
-    .n { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; margin-right: 8px; background: #ffd0e0; font-size: 12px; border: 2px solid #ff2d6a; }
-    .sheet { display: none; margin-top: 12px; background: rgba(255,255,255,0.28); border-radius: 20px; padding: 12px; backdrop-filter: blur(18px); }
+    .n { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; margin-right: 8px; background: rgba(255,255,255,0.45); font-size: 12px; }
+    .emo { margin-left: 6px; }
+    .sheet { display: none; margin-top: 12px; background: rgba(255,255,255,0.28); border: 1px solid var(--stroke); border-radius: 20px; padding: 12px; backdrop-filter: blur(18px); }
     .sheet.show { display: block; }
-    .sheet img { width: 100%; border-radius: 14px; display: block; border: 3px solid #ff2d6a; }
+    .sheet img { width: 100%; border-radius: 14px; display: block; }
     .cap { margin: 10px 8px 4px; font-size: 12px; color: var(--soft); text-align: center; }
-    .primary { margin-top: 10px; width: 100%; border: 3px solid #3a0718; border-radius: 14px; padding: 12px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #ff2d6a, #c41e5a); box-shadow: 0 0 0 3px #ff9ec0; }
+    .primary { margin-top: 10px; width: 100%; border: 0; border-radius: 14px; padding: 12px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #e889b0, #c9a6ff); }
     .tarif { display: grid; gap: 8px; }
-    .tarif details { background: rgba(255,255,255,0.22); border-radius: 14px; padding: 0 12px; }
+    .tarif details { background: rgba(255,255,255,0.22); border: 1px solid var(--stroke); border-radius: 14px; padding: 0 12px; }
     .tarif summary { list-style: none; cursor: pointer; padding: 12px 2px; font-weight: 700; font-size: 14px; }
     .tarif summary::-webkit-details-marker { display: none; }
     .tarif p { margin: 0 0 12px; font-size: 13px; font-weight: 500; color: var(--soft); line-height: 1.45; }
@@ -117,7 +87,9 @@
         <img src="avatar.jpg" alt="Freya Velvet" />
       </div>
       <h1>Freya Velvet</h1>
-      <p class="bio">Ga open bo!! cuma jual konten, request, task or vcs 馃崚 </p>
+      <p class="bio">Ga open bo!! cuma jual konten, request, task or vcs 🍒 </p>
+      <div class="lewd" aria-hidden="true">
+      </div>
       <div class="pills">
         <a class="pill" href="https://t.me/fffrreya" id="tgIcon" aria-label="Telegram">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 3.3 2.8 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 11.1-7c.5-.3 1-.1.6.2l-9 8.2-.3 4.8c.4 0 .6-.2.8-.4l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.7c.3-1.3-.5-1.9-1.4-1.5z"/></svg>
@@ -126,51 +98,48 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L6 22H2.9l7.3-8.3L1.2 2h6.6l4.5 6L18.9 2zm-1.1 18h1.8L6.3 3.9H4.4L17.8 20z"/></svg>
         </a>
       </div>
-      <div class="sexbox" aria-hidden="true">
-        <canvas id="sexpx" width="96" height="64"></canvas>
-      </div>
     </section>
     <nav class="menu">
-      <button class="item" type="button" id="btnX"><span class="n">1</span>Lihat profil X Freya<small>@alreadycorrupt</small></button>
-      <button class="item" type="button" id="btnTarif"><span class="n">2</span>Lihat tarif konten Freya<small>Dropdown paket & harga</small></button>
-      <button class="item" type="button" id="btnQris"><span class="n">3</span>Lihat payment QRIS<small>Scan, lalu kirim bukti</small></button>
-      <button class="item" type="button" id="btnBukti"><span class="n">4</span>Kirim bukti transfer<small>SS masuk ke chat Freya</small></button>
-      <button class="item" type="button" id="btnJajan"><span class="n">5</span>Jajanin Freya<small>Pilih paket di dropdown tarif</small></button>
+      <button class="item" type="button" id="btnX"><span class="n">1</span>Lihat profil X Freya <span class="emo">💋</span><small>@alreadycorrupt</small></button>
+      <button class="item" type="button" id="btnTarif"><span class="n">2</span>Lihat tarif konten Freya <span class="emo">🍑</span><small>Dropdown paket & harga</small></button>
+      <button class="item" type="button" id="btnQris"><span class="n">3</span>Lihat payment QRIS <span class="emo">💦</span><small>Scan, lalu kirim bukti</small></button>
+      <button class="item" type="button" id="btnBukti"><span class="n">4</span>Kirim bukti transfer <span class="emo">👅</span><small>SS masuk ke chat Freya</small></button>
+      <button class="item" type="button" id="btnJajan"><span class="n">5</span>Jajanin Freya <span class="emo">🥵</span><small>Pilih paket di dropdown tarif</small></button>
     </nav>
     <section class="sheet" id="tarifSheet">
       <div class="tarif">
         <details>
-          <summary>馃挄 Private Grup Telegram 50K </summary>
+          <summary>💕 Private Grup Telegram 50K 💦</summary>
           <p>Konten private telegram, daily upload foto dan short video, chat seks rame-rame, blasphemy rame-rame, lecehin aku rame-rame. Grup Permanen.</p>
         </details>
         <details>
-          <summary>馃挄 Konten Solo 150K </summary>
+          <summary>💕 Konten Solo 150K 🍑</summary>
           <p>Konten colmek, exhib, grepe dll.</p>
         </details>
         <details>
-          <summary>馃挄 Konten Ewe 200K </summary>
+          <summary>💕 Konten Ewe 200K 🍆</summary>
           <p>Konten memek, mulut atau anus aku diewe pake kontol.</p>
         </details>
         <details>
-          <summary>馃挄 VCS 200K sampe crot </summary>
+          <summary>💕 VCS 200K sampe crot 💦</summary>
           <p>VCS sampai selesai.</p>
         </details>
         <details>
-          <summary>馃挄 Request Konten/Task, Start 250K </summary>
+          <summary>💕 Request Konten/Task, Start 250K 😈</summary>
           <p>Request konten bebas suruh apapun kecuali Scat, Nyakitin badan. Tarif naik sesuai kerandoman task.</p>
         </details>
         <details>
-          <summary>馃挄 Blsphemy 500K+ </summary>
+          <summary>💕 Blsphemy 500K+ 🔥</summary>
           <p>Konten Sholat, Ngaji, Dakwah, Dzikir, Cadar dan lainnya.</p>
         </details>
       </div>
       <p class="note">Durasi minimal video konten berbayar aku 10 menit tapi seringnya aku lebihin.</p>
-      <button class="primary" type="button" id="btnToQris">Lanjut ke QRIS</button>
+      <button class="primary" type="button" id="btnToQris">Lanjut ke QRIS 💋</button>
     </section>
     <section class="sheet" id="qrisSheet">
       <img src="qris.jpg" alt="QRIS Freya" />
       <p class="cap">Ganti file qris.jpg dengan QRIS asli sebelum dipakai terima uang.</p>
-      <button class="primary" type="button" id="btnBukti2">Kirim bukti transfer</button>
+      <button class="primary" type="button" id="btnBukti2">Kirim bukti transfer 💦</button>
     </section>
   </main>
   <script>
@@ -205,64 +174,9 @@
     const bukti = () => openTg(TELE_URL);
     document.getElementById("btnBukti").onclick = bukti;
     document.getElementById("btnBukti2").onclick = bukti;
-
-    (function pixelSex() {
-      const c = document.getElementById("sexpx");
-      if (!c || !c.getContext) return;
-      const ctx = c.getContext("2d");
-      ctx.imageSmoothingEnabled = false;
-      const W = 96, H = 64;
-      const C = {
-        bg: "#2a0716", sheet: "#5a1830", sheet2: "#7a2444",
-        skin: "#f0b894", skin2: "#d99274", skin3: "#c07860",
-        hair: "#2b1610", nipple: "#c45a5a",
-        slit: "#8b1e3a", wet: "#e45a7a", wet2: "#ffd0de",
-        shaft: "#e8c4a0", head: "#f3d3b4", vein: "#c99478",
-        line: "#1a080c"
-      };
-      function p(x, y, w, h, col) {
-        ctx.fillStyle = col;
-        ctx.fillRect(x, y, w, h);
-      }
-      function frame(t) {
-        const depth = Math.round((Math.sin(t / 140) + 1) * 5);
-        ctx.fillStyle = C.bg;
-        ctx.fillRect(0, 0, W, H);
-        p(0, 48, 96, 16, C.sheet);
-        p(0, 52, 96, 4, C.sheet2);
-        p(18, 8, 18, 8, C.hair);
-        p(20, 14, 16, 12, C.skin);
-        p(24, 18, 3, 3, C.line);
-        p(32, 18, 3, 3, C.line);
-        p(27, 24, 6, 2, C.nipple);
-        p(22, 26, 20, 16, C.skin);
-        p(24, 30, 5, 5, C.skin2);
-        p(34, 30, 5, 5, C.skin2);
-        p(26, 32, 2, 2, C.nipple);
-        p(36, 32, 2, 2, C.nipple);
-        p(26, 40, 14, 10, C.skin);
-        p(8, 36, 20, 6, C.skin2);
-        p(6, 34, 8, 16, C.skin);
-        p(48, 36, 20, 6, C.skin2);
-        p(62, 34, 8, 16, C.skin);
-        p(28, 46, 10, 6, C.skin3);
-        p(30, 48, 6, 4, C.slit);
-        p(32, 49, 2, 3, C.wet);
-        const x = 30 - depth;
-        p(x, 47, 12 + depth, 4, C.shaft);
-        p(x - 4, 46, 6, 6, C.head);
-        p(x + 2, 48, 8, 1, C.vein);
-        if (depth > 6) p(33, 52, 3, 3, C.wet2);
-        p(x - 6, 44, 8, 4, C.skin2);
-        p(x - 8, 40, 10, 6, C.skin2);
-      }
-      let start = performance.now();
-      function loop(now) {
-        frame(now - start);
-        requestAnimationFrame(loop);
-      }
-      requestAnimationFrame(loop);
-    })();
+    if (window.twemoji) {
+      twemoji.parse(document.body, { folder: "svg", ext: ".svg" });
+    }
   </script>
 </body>
 </html>
